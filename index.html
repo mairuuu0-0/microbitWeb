@@ -1,0 +1,2496 @@
+```html
+<!DOCTYPE html>
+<html lang="th">
+
+<head>
+
+<meta charset="UTF-8">
+
+<meta name="viewport"
+      content="width=device-width, initial-scale=1.0">
+
+<title>Blind Assistant</title>
+
+<style>
+
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+  font-family: Arial, "Noto Sans Thai", sans-serif;
+}
+
+body {
+  min-height: 100vh;
+  background: #f4f6f8;
+  color: #222;
+  padding: 20px;
+}
+
+.container {
+  max-width: 800px;
+  margin: auto;
+}
+
+.header {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  text-align: center;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.header h1 {
+  font-size: 28px;
+  margin-bottom: 8px;
+}
+
+.header p {
+  color: #666;
+}
+
+.card {
+  background: white;
+  border-radius: 20px;
+  padding: 25px;
+  margin-bottom: 20px;
+  box-shadow: 0 5px 20px rgba(0,0,0,0.08);
+}
+
+.card h2 {
+  font-size: 20px;
+  margin-bottom: 20px;
+}
+
+
+/* =========================
+   BUTTON
+========================= */
+
+button {
+  border: none;
+  border-radius: 12px;
+  padding: 14px 20px;
+  font-size: 16px;
+  cursor: pointer;
+  transition: 0.2s;
+  width: 100%;
+  margin-top: 10px;
+}
+
+button:hover {
+  transform: translateY(-1px);
+}
+
+button:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+
+/* =========================
+   BLUETOOTH
+========================= */
+
+#connectBtn {
+  background: #222;
+  color: white;
+}
+
+#connectBtn.connected {
+  background: #198754;
+}
+
+.status {
+  padding: 12px;
+  border-radius: 10px;
+  background: #f1f1f1;
+  margin-top: 15px;
+  text-align: center;
+  font-weight: bold;
+}
+
+
+/* =========================
+   OBSTACLE
+========================= */
+
+.obstacle-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.obstacle-box {
+  background: #f5f5f5;
+  padding: 18px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.obstacle-box .label {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 8px;
+}
+
+.obstacle-box .distance {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+/* =========================
+   SLIDER
+========================= */
+
+.value-box {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.value {
+  font-size: 22px;
+  font-weight: bold;
+}
+
+input[type="range"] {
+  width: 100%;
+  cursor: pointer;
+  margin: 10px 0 25px;
+}
+
+.slider-info {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.slider-item {
+  background: #f5f5f5;
+  padding: 15px;
+  border-radius: 15px;
+}
+
+.slider-item label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+}
+
+
+/* =========================
+   TIMESTAMP
+========================= */
+
+#timestampBtn {
+  background: #e9eef5;
+  color: #222;
+}
+
+.timestamp {
+  text-align: center;
+  font-size: 30px;
+  font-weight: bold;
+  padding: 20px;
+  background: #f7f7f7;
+  border-radius: 15px;
+  margin-top: 15px;
+  letter-spacing: 2px;
+}
+
+
+/* =========================
+   DATA
+========================= */
+
+.data-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+
+.data-box {
+  background: #f5f5f5;
+  padding: 18px;
+  border-radius: 15px;
+  text-align: center;
+}
+
+.data-box .label {
+  color: #666;
+  font-size: 14px;
+  margin-bottom: 5px;
+}
+
+.data-box .data-value {
+  font-size: 24px;
+  font-weight: bold;
+}
+
+
+/* =========================
+   LOG
+========================= */
+
+.log {
+  background: #111;
+  color: #00ff88;
+  padding: 15px;
+  border-radius: 12px;
+  height: 150px;
+  overflow-y: auto;
+  font-family: monospace;
+  font-size: 13px;
+}
+
+
+/* =========================
+   BLIND ASSISTANT AI
+========================= */
+
+#assistantStatus {
+  text-align: center;
+  color: #666;
+  margin-bottom: 15px;
+  font-weight: bold;
+}
+
+#chat {
+  height: 300px;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  border-radius: 12px;
+  padding: 15px;
+  margin-bottom: 15px;
+  background: #fafafa;
+}
+
+.message {
+  margin: 10px 0;
+  padding: 12px;
+  border-radius: 10px;
+  word-wrap: break-word;
+}
+
+.message.user {
+  background: #e3f2fd;
+  text-align: right;
+}
+
+.message.ai {
+  background: #eeeeee;
+}
+
+.message.error {
+  background: #ffe5e5;
+  color: #b00000;
+}
+
+.chat-input {
+  display: flex;
+  gap: 8px;
+}
+
+#messageInput {
+  flex: 1;
+  padding: 13px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  font-size: 16px;
+  min-width: 0;
+}
+
+#sendButton {
+  width: 90px;
+  margin-top: 0;
+  background: #222;
+  color: white;
+}
+
+#micButton {
+  background: #555;
+  color: white;
+}
+
+#micButton.listening {
+  background: #c62828;
+}
+
+#speakButton {
+  background: #198754;
+  color: white;
+}
+
+.voice-info {
+  text-align: center;
+  margin-top: 10px;
+  color: #666;
+  font-size: 14px;
+}
+
+
+/* =========================
+   VIIDURE
+========================= */
+
+.app-button {
+  display: block;
+  text-decoration: none;
+  text-align: center;
+  padding: 14px;
+  border-radius: 12px;
+  margin-top: 10px;
+  color: white;
+  font-weight: bold;
+}
+
+.apple {
+  background: #222;
+}
+
+.android {
+  background: #198754;
+}
+
+
+/* =========================
+   MOBILE
+========================= */
+
+@media (max-width: 600px) {
+
+  .slider-info {
+    grid-template-columns: 1fr;
+  }
+
+  .data-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .obstacle-grid {
+    grid-template-columns: 1fr;
+  }
+
+  .header h1 {
+    font-size: 23px;
+  }
+
+  .chat-input {
+    flex-direction: column;
+  }
+
+  #sendButton {
+    width: 100%;
+  }
+
+}
+
+</style>
+
+</head>
+
+
+<body>
+
+<div class="container">
+
+
+<!-- =========================================================
+     HEADER
+========================================================= -->
+
+<div class="header">
+
+  <h1>
+    Blind Assistant
+  </h1>
+
+  <p>
+    ระบบช่วยเหลือผู้พิการทางสายตา
+    ด้วย AI + micro:bit
+  </p>
+
+</div>
+
+
+<!-- =========================================================
+     BLUETOOTH
+========================================================= -->
+
+<div class="card">
+
+  <h2>
+    🔵 micro:bit
+  </h2>
+
+  <button id="connectBtn">
+    Connect micro:bit
+  </button>
+
+  <div id="status" class="status">
+    สถานะ: ยังไม่ได้เชื่อมต่อ
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     OBSTACLE DISTANCE
+========================================================= -->
+
+<div class="card">
+
+  <h2>
+    📡 ระยะสิ่งกีดขวาง
+  </h2>
+
+  <div class="obstacle-grid">
+
+    <div class="obstacle-box">
+
+      <div class="label">
+        ซ้าย
+      </div>
+
+      <div class="distance">
+        <span id="leftDistance">-</span>
+        cm
+      </div>
+
+    </div>
+
+
+    <div class="obstacle-box">
+
+      <div class="label">
+        กลาง
+      </div>
+
+      <div class="distance">
+        <span id="centerDistance">-</span>
+        cm
+      </div>
+
+    </div>
+
+
+    <div class="obstacle-box">
+
+      <div class="label">
+        ขวา
+      </div>
+
+      <div class="distance">
+        <span id="rightDistance">-</span>
+        cm
+      </div>
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     HEIGHT
+========================================================= -->
+
+<div class="card">
+
+  <h2>
+    📏 ความสูงผู้ใช้
+  </h2>
+
+  <div class="value-box">
+
+    <span>
+      ความสูง
+    </span>
+
+    <span class="value">
+
+      <span id="heightValue">
+        160
+      </span>
+
+      cm
+
+    </span>
+
+  </div>
+
+  <input
+    type="range"
+    id="heightSlider"
+    min="100"
+    max="220"
+    value="160"
+    step="1"
+  >
+
+</div>
+
+
+<!-- =========================================================
+     ULTRASONIC ANGLE
+========================================================= -->
+
+<div class="card">
+
+  <h2>
+    📡 มุมของ Ultrasonic Sensor
+  </h2>
+
+  <div class="slider-info">
+
+
+    <div class="slider-item">
+
+      <label>
+        มุมบน
+      </label>
+
+      <div class="value-box">
+
+        <span>
+          Angle
+        </span>
+
+        <span class="value">
+
+          <span id="upperAngleValue">
+            45
+          </span>°
+
+        </span>
+
+      </div>
+
+      <input
+        type="range"
+        id="upperAngleSlider"
+        min="0"
+        max="180"
+        value="45"
+        step="1"
+      >
+
+    </div>
+
+
+    <div class="slider-item">
+
+      <label>
+        มุมล่าง
+      </label>
+
+      <div class="value-box">
+
+        <span>
+          Angle
+        </span>
+
+        <span class="value">
+
+          <span id="lowerAngleValue">
+            45
+          </span>°
+
+        </span>
+
+      </div>
+
+      <input
+        type="range"
+        id="lowerAngleSlider"
+        min="0"
+        max="180"
+        value="45"
+        step="1"
+      >
+
+    </div>
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     TIMESTAMP
+========================================================= -->
+
+<div class="card">
+
+  <h2>
+    ⏱ Timestamp
+  </h2>
+
+  <button id="timestampBtn">
+    บันทึก Timestamp
+  </button>
+
+  <div id="timestamp" class="timestamp">
+    --:--:--
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     MICROBIT DATA
+========================================================= -->
+
+<div class="card">
+
+  <h2>
+    📊 ข้อมูลจาก micro:bit
+  </h2>
+
+  <div class="data-grid">
+
+
+    <div class="data-box">
+
+      <div class="label">
+        Height
+      </div>
+
+      <div class="data-value">
+
+        <span id="btHeight">
+          -
+        </span>
+
+        cm
+
+      </div>
+
+    </div>
+
+
+    <div class="data-box">
+
+      <div class="label">
+        Upper Angle
+      </div>
+
+      <div class="data-value">
+
+        <span id="btUpperAngle">
+          -
+        </span>°
+
+      </div>
+
+    </div>
+
+
+    <div class="data-box">
+
+      <div class="label">
+        Lower Angle
+      </div>
+
+      <div class="data-value">
+
+        <span id="btLowerAngle">
+          -
+        </span>°
+
+      </div>
+
+    </div>
+
+
+  </div>
+
+</div>
+
+
+<!-- =========================================================
+     BLUETOOTH LOG
+========================================================= -->
+
+<div class="card">
+
+  <h2>
+    📝 Bluetooth Log
+  </h2>
+
+  <div id="log" class="log">
+    Waiting for Bluetooth...
+  </div>
+
+</div>
+
+<!-- =========================================================
+     AI CHAT
+     อยู่ล่างสุดของเว็บ
+========================================================= -->
+
+<div class="card">
+
+  <h2>
+    🤖 AI Assistant
+  </h2>
+
+  <div id="assistantStatus">
+    พร้อมใช้งาน
+  </div>
+
+
+  <div id="chat">
+
+    <div class="message ai">
+
+      <strong>AI:</strong>
+
+      <span>
+        สวัสดีครับ มีอะไรให้ช่วยไหมครับ
+      </span>
+
+    </div>
+
+  </div>
+
+
+  <!-- ช่องพิมพ์ + ส่ง -->
+
+  <div class="chat-input">
+
+    <input
+      id="messageInput"
+      type="text"
+      placeholder="พิมพ์คำถาม..."
+    >
+
+    <button id="sendButton">
+      ส่ง
+    </button>
+
+  </div>
+
+
+  <!-- พูดกับ AI -->
+
+  <button id="micButton">
+    🎤 พูดกับ AI
+  </button>
+
+
+  <!-- อ่านคำตอบล่าสุด -->
+
+  <button id="speakButton">
+    🔊 อ่านคำตอบล่าสุด
+  </button>
+
+
+  <div class="voice-info">
+
+    🎧 สามารถพูดกับ AI และฟังคำตอบได้
+
+  </div>
+
+</div>
+
+
+</div>
+
+
+<script>
+
+
+/* =========================================================
+   BACKEND
+========================================================= */
+
+const BACKEND_URL =
+  "https://blind-assistant-backend-1pql.onrender.com";
+
+
+/* =========================================================
+   AI DOM
+========================================================= */
+
+const messageInput =
+  document.getElementById(
+    "messageInput"
+  );
+
+const sendButton =
+  document.getElementById(
+    "sendButton"
+  );
+
+const micButton =
+  document.getElementById(
+    "micButton"
+  );
+
+const speakButton =
+  document.getElementById(
+    "speakButton"
+  );
+
+const chat =
+  document.getElementById(
+    "chat"
+  );
+
+const assistantStatus =
+  document.getElementById(
+    "assistantStatus"
+  );
+
+
+/* =========================================================
+   LAST AI ANSWER
+========================================================= */
+
+let lastAIAnswer = "";
+
+
+/* =========================================================
+   ADD CHAT MESSAGE
+========================================================= */
+
+function addChatMessage(
+  name,
+  message,
+  type
+) {
+
+  const div =
+    document.createElement(
+      "div"
+    );
+
+  div.className =
+    "message " + type;
+
+
+  const strong =
+    document.createElement(
+      "strong"
+    );
+
+  strong.textContent =
+    name + ": ";
+
+
+  const span =
+    document.createElement(
+      "span"
+    );
+
+  span.textContent =
+    message;
+
+
+  div.appendChild(
+    strong
+  );
+
+  div.appendChild(
+    span
+  );
+
+  chat.appendChild(
+    div
+  );
+
+
+  chat.scrollTop =
+    chat.scrollHeight;
+
+}
+
+
+/* =========================================================
+   SEND MESSAGE TO BACKEND
+========================================================= */
+
+async function sendMessage() {
+
+  const message =
+    messageInput.value.trim();
+
+
+  if (!message) {
+    return;
+  }
+
+
+  /* แสดงคำถาม */
+
+  addChatMessage(
+    "คุณ",
+    message,
+    "user"
+  );
+
+
+  messageInput.value = "";
+
+  sendButton.disabled = true;
+
+
+  /* สถานะ */
+
+  assistantStatus.textContent =
+    "🤖 AI กำลังคิด...";
+
+
+  /* แสดง Loading */
+
+  const loadingDiv =
+    document.createElement(
+      "div"
+    );
+
+  loadingDiv.className =
+    "message ai";
+
+  loadingDiv.id =
+    "aiLoading";
+
+  loadingDiv.innerHTML =
+    "<strong>AI:</strong> " +
+    "<span>🤖 กำลังคิด...</span>";
+
+  chat.appendChild(
+    loadingDiv
+  );
+
+  chat.scrollTop =
+    chat.scrollHeight;
+
+
+  try {
+
+    const response =
+      await fetch(
+        BACKEND_URL +
+        "/api/chat",
+        {
+
+          method: "POST",
+
+          headers: {
+            "Content-Type":
+              "application/json"
+          },
+
+          body: JSON.stringify({
+            message: message
+          })
+
+        }
+      );
+
+
+    /* =====================================================
+       HTTP ERROR
+    ===================================================== */
+
+    if (!response.ok) {
+
+      const errorText =
+        await response.text();
+
+      throw new Error(
+        "HTTP " +
+        response.status +
+        " : " +
+        errorText
+      );
+
+    }
+
+
+    /* =====================================================
+       READ JSON
+    ===================================================== */
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      "Backend Response:",
+      data
+    );
+
+
+    /* ลบ Loading */
+
+    const loading =
+      document.getElementById(
+        "aiLoading"
+      );
+
+    if (loading) {
+      loading.remove();
+    }
+
+
+    /* =====================================================
+       SUCCESS
+    ===================================================== */
+
+    if (data.success) {
+
+      lastAIAnswer =
+        data.answer;
+
+
+      addChatMessage(
+        "AI",
+        data.answer,
+        "ai"
+      );
+
+
+      assistantStatus.textContent =
+        "🔊 กำลังอ่านคำตอบ...";
+
+
+      /* อ่านออกเสียงอัตโนมัติ */
+
+      speakText(
+        data.answer
+      );
+
+    }
+
+
+    /* =====================================================
+       BACKEND ERROR
+    ===================================================== */
+
+    else {
+
+      addChatMessage(
+        "ระบบ",
+        data.error ||
+        "เกิดข้อผิดพลาดจาก AI",
+        "error"
+      );
+
+
+      assistantStatus.textContent =
+        "เกิดข้อผิดพลาด";
+
+    }
+
+
+  }
+
+
+  /* =======================================================
+     CATCH ERROR
+  ======================================================= */
+
+  catch (error) {
+
+    console.error(
+      "Chat Error:",
+      error
+    );
+
+
+    /* ลบ Loading */
+
+    const loading =
+      document.getElementById(
+        "aiLoading"
+      );
+
+    if (loading) {
+      loading.remove();
+    }
+
+
+    /* แสดง Error จริง */
+
+    addChatMessage(
+      "ระบบ",
+      "เกิดข้อผิดพลาด: " +
+      error.message,
+      "error"
+    );
+
+
+    assistantStatus.textContent =
+      "เชื่อมต่อ Backend ไม่ได้";
+
+  }
+
+
+  sendButton.disabled =
+    false;
+
+}
+
+
+/* =========================================================
+   SEND BUTTON
+========================================================= */
+
+sendButton.addEventListener(
+  "click",
+  sendMessage
+);
+
+
+/* =========================================================
+   ENTER TO SEND
+========================================================= */
+
+messageInput.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key === "Enter"
+    ) {
+
+      sendMessage();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   SPEECH RECOGNITION
+========================================================= */
+
+const SpeechRecognition =
+  window.SpeechRecognition ||
+  window.webkitSpeechRecognition;
+
+let recognition = null;
+
+
+if (SpeechRecognition) {
+
+  recognition =
+    new SpeechRecognition();
+
+
+  recognition.lang =
+    "th-TH";
+
+
+  recognition.continuous =
+    false;
+
+
+  recognition.interimResults =
+    false;
+
+
+  recognition.onstart =
+    function() {
+
+      micButton.disabled =
+        true;
+
+      micButton.classList.add(
+        "listening"
+      );
+
+      micButton.textContent =
+        "🎤 กำลังฟัง...";
+
+
+      assistantStatus.textContent =
+        "🎤 กำลังฟังเสียง...";
+
+    };
+
+
+  recognition.onresult =
+    function(event) {
+
+      const text =
+        event.results[0][0]
+          .transcript;
+
+
+      messageInput.value =
+        text;
+
+
+      assistantStatus.textContent =
+        "รับเสียงแล้ว กำลังส่ง...";
+
+
+      sendMessage();
+
+    };
+
+
+  recognition.onerror =
+    function(event) {
+
+      console.error(
+        "Speech Error:",
+        event.error
+      );
+
+
+      assistantStatus.textContent =
+        "เกิดข้อผิดพลาดจากไมโครโฟน";
+
+    };
+
+
+  recognition.onend =
+    function() {
+
+      micButton.disabled =
+        false;
+
+      micButton.classList.remove(
+        "listening"
+      );
+
+      micButton.textContent =
+        "🎤 พูดกับ AI";
+
+    };
+
+}
+
+
+/* =========================================================
+   MICROPHONE BUTTON
+========================================================= */
+
+micButton.addEventListener(
+  "click",
+  function() {
+
+    if (!recognition) {
+
+      alert(
+        "Browser นี้ไม่รองรับการรู้จำเสียง กรุณาใช้ Google Chrome"
+      );
+
+      return;
+
+    }
+
+
+    try {
+
+      recognition.start();
+
+    }
+
+    catch (error) {
+
+      console.error(
+        error
+      );
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   TEXT TO SPEECH
+========================================================= */
+
+function speakText(
+  text
+) {
+
+  if (
+    !(
+      "speechSynthesis"
+      in window
+    )
+  ) {
+
+    console.error(
+      "Browser ไม่รองรับ Text-to-Speech"
+    );
+
+    return;
+
+  }
+
+
+  speechSynthesis.cancel();
+
+
+  const utterance =
+    new SpeechSynthesisUtterance(
+      text
+    );
+
+
+  utterance.lang =
+    "th-TH";
+
+
+  utterance.rate =
+    0.9;
+
+
+  utterance.pitch =
+    1.0;
+
+
+  utterance.volume =
+    1.0;
+
+
+  const voices =
+    speechSynthesis.getVoices();
+
+
+  const thaiVoice =
+    voices.find(
+      voice =>
+        voice.lang &&
+        voice.lang
+          .toLowerCase()
+          .startsWith("th")
+    );
+
+
+  if (thaiVoice) {
+
+    utterance.voice =
+      thaiVoice;
+
+  }
+
+
+  utterance.onstart =
+    function() {
+
+      assistantStatus.textContent =
+        "🔊 กำลังอ่านคำตอบ...";
+
+    };
+
+
+  utterance.onend =
+    function() {
+
+      assistantStatus.textContent =
+        "พร้อมใช้งาน";
+
+    };
+
+
+  utterance.onerror =
+    function(event) {
+
+      console.error(
+        "TTS Error:",
+        event
+      );
+
+
+      assistantStatus.textContent =
+        "เกิดข้อผิดพลาดในการพูด";
+
+    };
+
+
+  speechSynthesis.speak(
+    utterance
+  );
+
+}
+
+
+/* =========================================================
+   SPEAK LAST ANSWER
+========================================================= */
+
+speakButton.addEventListener(
+  "click",
+  function() {
+
+    if (!lastAIAnswer) {
+
+      assistantStatus.textContent =
+        "ยังไม่มีคำตอบให้เล่น";
+
+      return;
+
+    }
+
+
+    speakText(
+      lastAIAnswer
+    );
+
+  }
+);
+
+
+/* =========================================================
+   LOAD VOICES
+========================================================= */
+
+if (
+  "speechSynthesis"
+  in window
+) {
+
+  speechSynthesis.onvoiceschanged =
+    function() {
+
+      speechSynthesis.getVoices();
+
+    };
+
+}
+
+
+/* =========================================================
+   MICRO:BIT BLE
+========================================================= */
+
+const UART_SERVICE_UUID =
+  "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
+
+const UART_RX_UUID =
+  "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
+
+const UART_TX_UUID =
+  "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
+
+
+let bluetoothDevice =
+  null;
+
+let uartService =
+  null;
+
+let rxCharacteristic =
+  null;
+
+let txCharacteristic =
+  null;
+
+
+/* =========================================================
+   BLUETOOTH DOM
+========================================================= */
+
+const connectBtn =
+  document.getElementById(
+    "connectBtn"
+  );
+
+const status =
+  document.getElementById(
+    "status"
+  );
+
+const log =
+  document.getElementById(
+    "log"
+  );
+
+
+const heightSlider =
+  document.getElementById(
+    "heightSlider"
+  );
+
+const upperAngleSlider =
+  document.getElementById(
+    "upperAngleSlider"
+  );
+
+const lowerAngleSlider =
+  document.getElementById(
+    "lowerAngleSlider"
+  );
+
+
+const heightValue =
+  document.getElementById(
+    "heightValue"
+  );
+
+const upperAngleValue =
+  document.getElementById(
+    "upperAngleValue"
+  );
+
+const lowerAngleValue =
+  document.getElementById(
+    "lowerAngleValue"
+  );
+
+
+const timestampBtn =
+  document.getElementById(
+    "timestampBtn"
+  );
+
+const timestamp =
+  document.getElementById(
+    "timestamp"
+  );
+
+
+/* =========================================================
+   LOG
+========================================================= */
+
+function addLog(
+  message
+) {
+
+  const time =
+    new Date()
+      .toLocaleTimeString(
+        "th-TH"
+      );
+
+
+  log.innerHTML +=
+    `<br>[${time}] ${message}`;
+
+
+  log.scrollTop =
+    log.scrollHeight;
+
+}
+
+
+/* =========================================================
+   STATUS
+========================================================= */
+
+function setStatus(
+  message
+) {
+
+  status.textContent =
+    "สถานะ: " +
+    message;
+
+}
+
+
+/* =========================================================
+   CHECK BLUETOOTH
+========================================================= */
+
+if (!navigator.bluetooth) {
+
+  setStatus(
+    "Browser นี้ไม่รองรับ Web Bluetooth"
+  );
+
+  connectBtn.disabled =
+    true;
+
+  addLog(
+    "Web Bluetooth API ไม่รองรับ"
+  );
+
+}
+
+
+/* =========================================================
+   CONNECT BUTTON
+========================================================= */
+
+connectBtn.addEventListener(
+  "click",
+  connectBluetooth
+);
+
+
+/* =========================================================
+   CONNECT BLUETOOTH
+========================================================= */
+
+async function connectBluetooth() {
+
+  try {
+
+    addLog(
+      "กำลังค้นหา micro:bit..."
+    );
+
+
+    setStatus(
+      "กำลังค้นหา micro:bit..."
+    );
+
+
+    bluetoothDevice =
+      await navigator.bluetooth.requestDevice({
+
+        filters: [
+          {
+            services: [
+              UART_SERVICE_UUID
+            ]
+          }
+        ],
+
+        optionalServices: [
+          UART_SERVICE_UUID
+        ]
+
+      });
+
+
+    addLog(
+      "พบอุปกรณ์: " +
+      (
+        bluetoothDevice.name ||
+        "micro:bit"
+      )
+    );
+
+
+    bluetoothDevice.addEventListener(
+      "gattserverdisconnected",
+      handleDisconnect
+    );
+
+
+    setStatus(
+      "กำลังเชื่อมต่อ..."
+    );
+
+
+    const server =
+      await bluetoothDevice
+        .gatt
+        .connect();
+
+
+    addLog(
+      "เชื่อมต่อ GATT สำเร็จ"
+    );
+
+
+    uartService =
+      await server.getPrimaryService(
+        UART_SERVICE_UUID
+      );
+
+
+    rxCharacteristic =
+      await uartService.getCharacteristic(
+        UART_RX_UUID
+      );
+
+
+    txCharacteristic =
+      await uartService.getCharacteristic(
+        UART_TX_UUID
+      );
+
+
+    await txCharacteristic
+      .startNotifications();
+
+
+    txCharacteristic.addEventListener(
+      "characteristicvaluechanged",
+      handleBluetoothData
+    );
+
+
+    setStatus(
+      "เชื่อมต่อ micro:bit สำเร็จ ✓"
+    );
+
+
+    connectBtn.textContent =
+      "Connected ✓";
+
+
+    connectBtn.classList.add(
+      "connected"
+    );
+
+
+    addLog(
+      "เริ่มรับข้อมูลจาก micro:bit"
+    );
+
+  }
+
+
+  catch (error) {
+
+    console.error(
+      error
+    );
+
+
+    setStatus(
+      "ไม่สามารถเชื่อมต่อได้"
+    );
+
+
+    addLog(
+      "Error: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   DISCONNECT
+========================================================= */
+
+function handleDisconnect() {
+
+  setStatus(
+    "micro:bit ถูกตัดการเชื่อมต่อ"
+  );
+
+
+  connectBtn.textContent =
+    "Connect micro:bit";
+
+
+  connectBtn.classList.remove(
+    "connected"
+  );
+
+
+  rxCharacteristic =
+    null;
+
+  txCharacteristic =
+    null;
+
+
+  addLog(
+    "Bluetooth disconnected"
+  );
+
+}
+
+
+/* =========================================================
+   RECEIVE BLUETOOTH DATA
+========================================================= */
+
+function handleBluetoothData(
+  event
+) {
+
+  const decoder =
+    new TextDecoder(
+      "utf-8"
+    );
+
+
+  const data =
+    decoder
+      .decode(
+        event.target.value
+      )
+      .trim();
+
+
+  addLog(
+    "RX: " +
+    data
+  );
+
+
+  /* =====================================================
+     JSON
+  ===================================================== */
+
+  try {
+
+    const json =
+      JSON.parse(
+        data
+      );
+
+
+    if (
+      json.height !== undefined
+    ) {
+
+      document.getElementById(
+        "btHeight"
+      ).textContent =
+        json.height;
+
+    }
+
+
+    if (
+      json.upper !== undefined
+    ) {
+
+      document.getElementById(
+        "btUpperAngle"
+      ).textContent =
+        json.upper;
+
+    }
+
+
+    if (
+      json.lower !== undefined
+    ) {
+
+      document.getElementById(
+        "btLowerAngle"
+      ).textContent =
+        json.lower;
+
+    }
+
+
+    if (
+      json.timestamp !== undefined
+    ) {
+
+      timestamp.textContent =
+        json.timestamp;
+
+    }
+
+
+    if (
+      json.left !== undefined
+    ) {
+
+      document.getElementById(
+        "leftDistance"
+      ).textContent =
+        json.left;
+
+    }
+
+
+    if (
+      json.center !== undefined
+    ) {
+
+      document.getElementById(
+        "centerDistance"
+      ).textContent =
+        json.center;
+
+    }
+
+
+    if (
+      json.right !== undefined
+    ) {
+
+      document.getElementById(
+        "rightDistance"
+      ).textContent =
+        json.right;
+
+    }
+
+
+    return;
+
+  }
+
+  catch (error) {
+
+    /* ไม่ใช่ JSON */
+
+  }
+
+
+  /* =====================================================
+     HEIGHT
+  ===================================================== */
+
+  if (
+    data.startsWith(
+      "HEIGHT:"
+    )
+  ) {
+
+    const value =
+      data.substring(
+        7
+      );
+
+
+    document.getElementById(
+      "btHeight"
+    ).textContent =
+      value;
+
+  }
+
+
+  /* =====================================================
+     UPPER
+  ===================================================== */
+
+  if (
+    data.startsWith(
+      "UPPER:"
+    )
+  ) {
+
+    const value =
+      data.substring(
+        6
+      );
+
+
+    document.getElementById(
+      "btUpperAngle"
+    ).textContent =
+      value;
+
+  }
+
+
+  /* =====================================================
+     LOWER
+  ===================================================== */
+
+  if (
+    data.startsWith(
+      "LOWER:"
+    )
+  ) {
+
+    const value =
+      data.substring(
+        6
+      );
+
+
+    document.getElementById(
+      "btLowerAngle"
+    ).textContent =
+      value;
+
+  }
+
+
+  /* =====================================================
+     TIME
+  ===================================================== */
+
+  if (
+    data.startsWith(
+      "TIME:"
+    )
+  ) {
+
+    const value =
+      data.substring(
+        5
+      );
+
+
+    timestamp.textContent =
+      value;
+
+  }
+
+
+  /* =====================================================
+     LEFT
+  ===================================================== */
+
+  if (
+    data.startsWith(
+      "LEFT:"
+    )
+  ) {
+
+    const value =
+      data.substring(
+        5
+      );
+
+
+    document.getElementById(
+      "leftDistance"
+    ).textContent =
+      value;
+
+  }
+
+
+  /* =====================================================
+     CENTER
+  ===================================================== */
+
+  if (
+    data.startsWith(
+      "CENTER:"
+    )
+  ) {
+
+    const value =
+      data.substring(
+        7
+      );
+
+
+    document.getElementById(
+      "centerDistance"
+    ).textContent =
+      value;
+
+  }
+
+
+  /* =====================================================
+     RIGHT
+  ===================================================== */
+
+  if (
+    data.startsWith(
+      "RIGHT:"
+    )
+  ) {
+
+    const value =
+      data.substring(
+        6
+      );
+
+
+    document.getElementById(
+      "rightDistance"
+    ).textContent =
+      value;
+
+  }
+
+
+  /* =====================================================
+     COMBINED DATA
+  ===================================================== */
+
+  if (
+    data.includes("HEIGHT:") &&
+    data.includes("UPPER:") &&
+    data.includes("LOWER:")
+  ) {
+
+    const parts =
+      data.split(",");
+
+
+    parts.forEach(
+      part => {
+
+        const [
+          key,
+          value
+        ] =
+          part.split(":");
+
+
+        if (
+          key === "HEIGHT"
+        ) {
+
+          document.getElementById(
+            "btHeight"
+          ).textContent =
+            value;
+
+        }
+
+
+        if (
+          key === "UPPER"
+        ) {
+
+          document.getElementById(
+            "btUpperAngle"
+          ).textContent =
+            value;
+
+        }
+
+
+        if (
+          key === "LOWER"
+        ) {
+
+          document.getElementById(
+            "btLowerAngle"
+          ).textContent =
+            value;
+
+        }
+
+
+        if (
+          key === "LEFT"
+        ) {
+
+          document.getElementById(
+            "leftDistance"
+          ).textContent =
+            value;
+
+        }
+
+
+        if (
+          key === "CENTER"
+        ) {
+
+          document.getElementById(
+            "centerDistance"
+          ).textContent =
+            value;
+
+        }
+
+
+        if (
+          key === "RIGHT"
+        ) {
+
+          document.getElementById(
+            "rightDistance"
+          ).textContent =
+            value;
+
+        }
+
+      }
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   SEND BLUETOOTH
+========================================================= */
+
+async function sendBluetoothData(
+  data
+) {
+
+  if (!rxCharacteristic) {
+
+    addLog(
+      "ยังไม่ได้เชื่อมต่อ micro:bit"
+    );
+
+    return;
+
+  }
+
+
+  try {
+
+    const encoder =
+      new TextEncoder();
+
+
+    const value =
+      encoder.encode(
+        data +
+        "\n"
+      );
+
+
+    await rxCharacteristic
+      .writeValue(
+        value
+      );
+
+
+    addLog(
+      "TX: " +
+      data
+    );
+
+  }
+
+
+  catch (error) {
+
+    console.error(
+      error
+    );
+
+
+    addLog(
+      "TX Error: " +
+      error.message
+    );
+
+  }
+
+}
+
+
+/* =========================================================
+   HEIGHT SLIDER
+========================================================= */
+
+heightSlider.addEventListener(
+  "input",
+  function() {
+
+    const value =
+      this.value;
+
+
+    heightValue.textContent =
+      value;
+
+
+    sendBluetoothData(
+      "HEIGHT:" +
+      value
+    );
+
+  }
+);
+
+
+/* =========================================================
+   UPPER ANGLE
+========================================================= */
+
+upperAngleSlider.addEventListener(
+  "input",
+  function() {
+
+    const value =
+      this.value;
+
+
+    upperAngleValue.textContent =
+      value;
+
+
+    sendBluetoothData(
+      "UPPER:" +
+      value
+    );
+
+  }
+);
+
+
+/* =========================================================
+   LOWER ANGLE
+========================================================= */
+
+lowerAngleSlider.addEventListener(
+  "input",
+  function() {
+
+    const value =
+      this.value;
+
+
+    lowerAngleValue.textContent =
+      value;
+
+
+    sendBluetoothData(
+      "LOWER:" +
+      value
+    );
+
+  }
+);
+
+
+/* =========================================================
+   TIMESTAMP
+========================================================= */
+
+timestampBtn.addEventListener(
+  "click",
+  createTimestamp
+);
+
+
+function createTimestamp() {
+
+  const now =
+    new Date();
+
+
+  const hours =
+    String(
+      now.getHours()
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  const minutes =
+    String(
+      now.getMinutes()
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  const seconds =
+    String(
+      now.getSeconds()
+    ).padStart(
+      2,
+      "0"
+    );
+
+
+  const time =
+    `${hours}:${minutes}:${seconds}`;
+
+
+  timestamp.textContent =
+    time;
+
+
+  addLog(
+    "Timestamp: " +
+    time
+  );
+
+
+  sendBluetoothData(
+    "TIME:" +
+    time
+  );
+
+}
+
+
+/* =========================================================
+   KEYBOARD T
+========================================================= */
+
+document.addEventListener(
+  "keydown",
+  function(event) {
+
+    if (
+      event.key.toLowerCase()
+      === "t"
+    ) {
+
+      createTimestamp();
+
+    }
+
+  }
+);
+
+
+/* =========================================================
+   INITIAL VALUES
+========================================================= */
+
+heightValue.textContent =
+  heightSlider.value;
+
+upperAngleValue.textContent =
+  upperAngleSlider.value;
+
+lowerAngleValue.textContent =
+  lowerAngleSlider.value;
+
+
+/* =========================================================
+   TEST BACKEND
+========================================================= */
+
+async function testBackend() {
+
+  try {
+
+    const response =
+      await fetch(
+        BACKEND_URL +
+        "/api/health"
+      );
+
+
+    if (!response.ok) {
+
+      throw new Error(
+        "HTTP " +
+        response.status
+      );
+
+    }
+
+
+    const data =
+      await response.json();
+
+
+    console.log(
+      "Backend Health:",
+      data
+    );
+
+
+  }
+
+  catch (error) {
+
+    console.error(
+      "Backend Health Error:",
+      error
+    );
+
+  }
+
+}
+
+
+testBackend();
+
+</script>
+
+</body>
+
+</html>
+```
