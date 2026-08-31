@@ -1218,41 +1218,60 @@ if (SpeechRecognition) {
     };
 
 
-  recognition.onresult =
-    function(event) {
+recognition.onresult = function(event) {
 
-      const text =
-        event.results[0][0]
-          .transcript;
+  const text =
+    event.results[0][0].transcript.trim();
 
+  console.log("🎤 Speech result:", text);
 
-      messageInput.value =
-        text;
+  if (!text) {
+    assistantStatus.textContent =
+      "ไม่ได้ยินข้อความ กรุณาลองใหม่";
+    return;
+  }
 
+  // ใส่ข้อความที่ได้จากเสียงลงช่องแชท
+  messageInput.value = text;
 
-      assistantStatus.textContent =
-        "รับเสียงแล้ว กำลังส่ง...";
+  // แสดงสถานะ
+  assistantStatus.textContent =
+    "📝 ได้ยินว่า: " + text;
 
+  // ส่งเข้า AI
+  setTimeout(function() {
+    sendMessage();
+  }, 100);
 
-      sendMessage();
-
-    };
-
-
-  recognition.onerror =
-    function(event) {
-
-      console.error(
-        "Speech Error:",
-        event.error
-      );
+};
 
 
-      assistantStatus.textContent =
-        "เกิดข้อผิดพลาดจากไมโครโฟน";
+  recognition.onerror = function(event) {
 
-    };
+  console.error(
+    "🎤 Speech Error:",
+    event.error
+  );
 
+  if (event.error === "not-allowed") {
+
+    assistantStatus.textContent =
+      "❌ ไม่ได้รับอนุญาตให้ใช้ไมโครโฟน";
+
+  } else if (event.error === "no-speech") {
+
+    assistantStatus.textContent =
+      "❌ ไม่ได้ยินเสียง กรุณาลองพูดใหม่";
+
+  } else {
+
+    assistantStatus.textContent =
+      "❌ ไมโครโฟนเกิดข้อผิดพลาด: " +
+      event.error;
+
+  }
+
+};
 
   recognition.onend =
     function() {
@@ -1290,16 +1309,20 @@ micButton.addEventListener(
 
     }
 
-
     try {
+
+      speechSynthesis.cancel();
 
       recognition.start();
 
-    }
+      console.log(
+        "🎤 เริ่มฟังเสียง"
+      );
 
-    catch (error) {
+    } catch (error) {
 
       console.error(
+        "Start Speech Error:",
         error
       );
 
@@ -1307,7 +1330,6 @@ micButton.addEventListener(
 
   }
 );
-
 
 /* =========================================================
    TEXT TO SPEECH
