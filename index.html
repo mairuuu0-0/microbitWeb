@@ -13,9 +13,9 @@
 
 <style>
 
-/* ============================================================
+/* =========================================================
    BASIC
-============================================================ */
+========================================================= */
 
 * {
   box-sizing: border-box;
@@ -36,11 +36,6 @@ body {
   margin: auto;
 }
 
-
-/* ============================================================
-   HEADER
-============================================================ */
-
 .header {
   background: white;
   border-radius: 20px;
@@ -59,11 +54,6 @@ body {
   color: #666;
 }
 
-
-/* ============================================================
-   CARD
-============================================================ */
-
 .card {
   background: white;
   border-radius: 20px;
@@ -78,9 +68,9 @@ body {
 }
 
 
-/* ============================================================
+/* =========================================================
    BUTTON
-============================================================ */
+========================================================= */
 
 button {
   border: none;
@@ -103,9 +93,9 @@ button:disabled {
 }
 
 
-/* ============================================================
+/* =========================================================
    BLUETOOTH
-============================================================ */
+========================================================= */
 
 #connectBtn {
   background: #222;
@@ -126,9 +116,9 @@ button:disabled {
 }
 
 
-/* ============================================================
+/* =========================================================
    OBSTACLE
-============================================================ */
+========================================================= */
 
 .obstacle-grid {
   display: grid;
@@ -154,9 +144,9 @@ button:disabled {
 }
 
 
-/* ============================================================
-   HEIGHT + ANGLE
-============================================================ */
+/* =========================================================
+   SETTINGS
+========================================================= */
 
 .value-box {
   display: flex;
@@ -173,7 +163,7 @@ button:disabled {
 input[type="range"] {
   width: 100%;
   cursor: pointer;
-  margin: 10px 0 25px;
+  margin: 10px 0 20px;
 }
 
 .slider-info {
@@ -195,9 +185,9 @@ input[type="range"] {
 }
 
 
-/* ============================================================
+/* =========================================================
    TIMESTAMP
-============================================================ */
+========================================================= */
 
 #timestampBtn {
   background: #e9eef5;
@@ -212,13 +202,12 @@ input[type="range"] {
   background: #f7f7f7;
   border-radius: 15px;
   margin-top: 15px;
-  letter-spacing: 2px;
 }
 
 
-/* ============================================================
+/* =========================================================
    DATA
-============================================================ */
+========================================================= */
 
 .data-grid {
   display: grid;
@@ -245,9 +234,9 @@ input[type="range"] {
 }
 
 
-/* ============================================================
-   LOG
-============================================================ */
+/* =========================================================
+   BLUETOOTH LOG
+========================================================= */
 
 .log {
   background: #111;
@@ -261,9 +250,9 @@ input[type="range"] {
 }
 
 
-/* ============================================================
+/* =========================================================
    AI CHAT
-============================================================ */
+========================================================= */
 
 #assistantStatus {
   text-align: center;
@@ -326,6 +315,7 @@ input[type="range"] {
 #micButton {
   background: #555;
   color: white;
+  font-size: 17px;
 }
 
 #micButton.listening {
@@ -340,9 +330,9 @@ input[type="range"] {
 }
 
 
-/* ============================================================
+/* =========================================================
    MOBILE
-============================================================ */
+========================================================= */
 
 @media (max-width: 600px) {
 
@@ -382,9 +372,9 @@ input[type="range"] {
 <div class="container">
 
 
-<!-- ============================================================
+<!-- =======================================================
      HEADER
-============================================================ -->
+======================================================= -->
 
 <div class="header">
 
@@ -400,9 +390,9 @@ input[type="range"] {
 </div>
 
 
-<!-- ============================================================
-     BLUETOOTH
-============================================================ -->
+<!-- =======================================================
+     MICRO:BIT
+======================================================= -->
 
 <div class="card">
 
@@ -421,9 +411,9 @@ input[type="range"] {
 </div>
 
 
-<!-- ============================================================
+<!-- =======================================================
      OBSTACLE
-============================================================ -->
+======================================================= -->
 
 <div class="card">
 
@@ -433,7 +423,6 @@ input[type="range"] {
 
   <div class="obstacle-grid">
 
-
     <div class="obstacle-box">
 
       <div class="label">
@@ -441,13 +430,8 @@ input[type="range"] {
       </div>
 
       <div class="distance">
-
-        <span id="leftDistance">
-          -
-        </span>
-
+        <span id="leftDistance">-</span>
         cm
-
       </div>
 
     </div>
@@ -460,13 +444,8 @@ input[type="range"] {
       </div>
 
       <div class="distance">
-
-        <span id="centerDistance">
-          -
-        </span>
-
+        <span id="centerDistance">-</span>
         cm
-
       </div>
 
     </div>
@@ -479,13 +458,8 @@ input[type="range"] {
       </div>
 
       <div class="distance">
-
-        <span id="rightDistance">
-          -
-        </span>
-
+        <span id="rightDistance">-</span>
         cm
-
       </div>
 
     </div>
@@ -495,9 +469,9 @@ input[type="range"] {
 </div>
 
 
-<!-- ============================================================
+<!-- =======================================================
      HEIGHT
-============================================================ -->
+======================================================= -->
 
 <div class="card">
 
@@ -523,7 +497,6 @@ input[type="range"] {
 
   </div>
 
-
   <input
     type="range"
     id="heightSlider"
@@ -536,9 +509,9 @@ input[type="range"] {
 </div>
 
 
-<!-- ============================================================
+<!-- =======================================================
      ULTRASONIC ANGLE
-============================================================ -->
+======================================================= -->
 
 <div class="card">
 
@@ -574,7 +547,6 @@ input[type="range"] {
         </span>
 
       </div>
-
 
       <input
         type="range"
@@ -614,7 +586,6 @@ input[type="range"] {
 
       </div>
 
-
       <input
         type="range"
         id="lowerAngleSlider"
@@ -631,9 +602,9 @@ input[type="range"] {
 </div>
 
 
-<!-- ============================================================
+<!-- =======================================================
      TIMESTAMP
-============================================================ -->
+======================================================= -->
 
 <div class="card">
 
@@ -652,9 +623,9 @@ input[type="range"] {
 </div>
 
 
-<!-- ============================================================
-     DATA
-============================================================ -->
+<!-- =======================================================
+     MICRO:BIT DATA
+======================================================= -->
 
 <div class="card">
 
@@ -726,9 +697,9 @@ input[type="range"] {
 </div>
 
 
-<!-- ============================================================
+<!-- =======================================================
      BLUETOOTH LOG
-============================================================ -->
+======================================================= -->
 
 <div class="card">
 
@@ -743,16 +714,15 @@ input[type="range"] {
 </div>
 
 
-<!-- ============================================================
+<!-- =======================================================
      AI CHAT — อยู่ล่างสุด
-============================================================ -->
+======================================================= -->
 
 <div class="card">
 
   <h2>
     🤖 Blind Assistant AI
   </h2>
-
 
   <div id="assistantStatus">
     พร้อมใช้งาน
@@ -763,9 +733,7 @@ input[type="range"] {
 
     <div class="message ai">
 
-      <strong>
-        AI:
-      </strong>
+      <strong>AI:</strong>
 
       <span>
         สวัสดีครับ มีอะไรให้ช่วยไหมครับ
@@ -776,8 +744,6 @@ input[type="range"] {
   </div>
 
 
-  <!-- TEXT -->
-
   <div class="chat-input">
 
     <input
@@ -786,27 +752,19 @@ input[type="range"] {
       placeholder="พิมพ์คำถาม..."
     >
 
-    <button
-      id="sendButton"
-    >
+    <button id="sendButton">
       ส่ง
     </button>
 
   </div>
 
 
-  <!-- MICROPHONE -->
-
-  <button
-    id="micButton"
-  >
+  <button id="micButton">
     🎤 พูดกับ AI
   </button>
 
 
   <div class="voice-info">
-
-    🎧 พูดกับ AI ได้ทั้งตอนเสียบหูฟังและไม่เสียบหูฟัง<br>
 
     🔊 AI จะอ่านคำตอบให้อัตโนมัติ
 
@@ -821,17 +779,17 @@ input[type="range"] {
 <script>
 
 
-/* ============================================================
+/* =========================================================
    BACKEND
-============================================================ */
+========================================================= */
 
 const BACKEND_URL =
   "https://blind-assistant-backend-1pql.onrender.com";
 
 
-/* ============================================================
+/* =========================================================
    AI DOM
-============================================================ */
+========================================================= */
 
 const messageInput =
   document.getElementById(
@@ -859,9 +817,9 @@ const assistantStatus =
   );
 
 
-/* ============================================================
-   ADD CHAT MESSAGE
-============================================================ */
+/* =========================================================
+   CHAT MESSAGE
+========================================================= */
 
 function addChatMessage(
   name,
@@ -874,10 +832,8 @@ function addChatMessage(
       "div"
     );
 
-
   div.className =
-    "message " +
-    type;
+    "message " + type;
 
 
   const strong =
@@ -885,17 +841,14 @@ function addChatMessage(
       "strong"
     );
 
-
   strong.textContent =
-    name +
-    ": ";
+    name + ": ";
 
 
   const span =
     document.createElement(
       "span"
     );
-
 
   span.textContent =
     message;
@@ -905,11 +858,9 @@ function addChatMessage(
     strong
   );
 
-
   div.appendChild(
     span
   );
-
 
   chat.appendChild(
     div
@@ -922,9 +873,9 @@ function addChatMessage(
 }
 
 
-/* ============================================================
-   SEND MESSAGE TO AI
-============================================================ */
+/* =========================================================
+   SEND MESSAGE TO BACKEND
+========================================================= */
 
 async function sendMessage(
   voiceMessage = null
@@ -935,21 +886,12 @@ async function sendMessage(
       voiceMessage !== null
         ? voiceMessage
         : messageInput.value
-    )
-    .trim();
+    ).trim();
 
 
   if (!message) {
-
     return;
-
   }
-
-
-  console.log(
-    "📤 ส่งข้อความ:",
-    message
-  );
 
 
   addChatMessage(
@@ -967,16 +909,11 @@ async function sendMessage(
     true;
 
 
-  micButton.disabled =
-    true;
-
-
   assistantStatus.textContent =
     "กำลังคิด...";
 
 
   try {
-
 
     const response =
       await fetch(
@@ -984,37 +921,29 @@ async function sendMessage(
         "/api/chat",
         {
 
-          method:
-            "POST",
+          method: "POST",
 
           headers: {
-
             "Content-Type":
               "application/json"
-
           },
 
-          body:
-            JSON.stringify({
-
-              message:
-                message
-
-            })
+          body: JSON.stringify({
+            message: message
+          })
 
         }
       );
 
 
-    /* ========================================================
+    /* =====================================================
        HTTP ERROR
-    ======================================================== */
+    ===================================================== */
 
     if (!response.ok) {
 
       const errorText =
         await response.text();
-
 
       throw new Error(
         "HTTP " +
@@ -1026,27 +955,21 @@ async function sendMessage(
     }
 
 
-    /* ========================================================
+    /* =====================================================
        JSON
-    ======================================================== */
+    ===================================================== */
 
     const data =
       await response.json();
 
 
     console.log(
-      "🤖 Backend Response:",
+      "Backend Response:",
       data
     );
 
 
-    /* ========================================================
-       SUCCESS
-    ======================================================== */
-
-    if (
-      data.success
-    ) {
+    if (data.success) {
 
       const answer =
         data.answer ||
@@ -1060,13 +983,7 @@ async function sendMessage(
       );
 
 
-      assistantStatus.textContent =
-        "🔊 กำลังอ่านคำตอบ...";
-
-
-      /*
-       * อ่านคำตอบทันที
-       */
+      /* อ่านทันที */
 
       speakText(
         answer
@@ -1086,7 +1003,7 @@ async function sendMessage(
   } catch (error) {
 
     console.error(
-      "❌ Chat Error:",
+      "Chat Error:",
       error
     );
 
@@ -1108,18 +1025,14 @@ async function sendMessage(
     sendButton.disabled =
       false;
 
-
-    micButton.disabled =
-      false;
-
   }
 
 }
 
 
-/* ============================================================
+/* =========================================================
    SEND BUTTON
-============================================================ */
+========================================================= */
 
 sendButton.addEventListener(
   "click",
@@ -1131,9 +1044,9 @@ sendButton.addEventListener(
 );
 
 
-/* ============================================================
-   ENTER TO SEND
-============================================================ */
+/* =========================================================
+   ENTER
+========================================================= */
 
 messageInput.addEventListener(
   "keydown",
@@ -1151,9 +1064,9 @@ messageInput.addEventListener(
 );
 
 
-/* ============================================================
+/* =========================================================
    SPEECH RECOGNITION
-============================================================ */
+========================================================= */
 
 const SpeechRecognition =
   window.SpeechRecognition ||
@@ -1164,44 +1077,61 @@ let recognition =
   null;
 
 
-if (
-  SpeechRecognition
-) {
+let isListening =
+  false;
+
+
+if (SpeechRecognition) {
 
   recognition =
     new SpeechRecognition();
 
 
+  /*
+   * ภาษาไทย
+   */
+
   recognition.lang =
     "th-TH";
 
+
+  /*
+   * พูดจบแล้วหยุด
+   */
 
   recognition.continuous =
     false;
 
 
+  /*
+   * ไม่เอาคำที่ยังไม่จบ
+   */
+
   recognition.interimResults =
     false;
 
+
+  /*
+   * เอาคำตอบที่ดีที่สุด
+   */
 
   recognition.maxAlternatives =
     1;
 
 
-  /* ========================================================
+  /* =======================================================
      START LISTENING
-  ======================================================== */
+  ======================================================= */
 
   recognition.onstart =
     function() {
 
-      console.log(
-        "🎤 เริ่มฟัง"
-      );
+      isListening =
+        true;
 
 
       micButton.disabled =
-        true;
+        false;
 
 
       micButton.classList.add(
@@ -1216,25 +1146,31 @@ if (
       assistantStatus.textContent =
         "กำลังฟังเสียง...";
 
+
+      console.log(
+        "Microphone started"
+      );
+
     };
 
 
-  /* ========================================================
+  /* =======================================================
      RESULT
-  ======================================================== */
+  ======================================================= */
 
   recognition.onresult =
     function(event) {
 
+      const result =
+        event.results[0][0];
+
+
       const text =
-        event
-          .results[0][0]
-          .transcript
-          .trim();
+        result.transcript.trim();
 
 
       console.log(
-        "🎤 ได้ยิน:",
+        "Recognized:",
         text
       );
 
@@ -1244,19 +1180,26 @@ if (
         assistantStatus.textContent =
           "ไม่ได้ยินเสียง";
 
-
         return;
 
       }
 
 
       /*
-       * ส่งเสียงเข้า Backend
+       * ใส่ข้อความที่ฟังได้
        */
 
-      assistantStatus.textContent =
-        "กำลังถาม AI...";
+      messageInput.value =
+        text;
 
+
+      assistantStatus.textContent =
+        "ส่งคำถามไปยัง AI...";
+
+
+      /*
+       * ส่งเข้า Backend ทันที
+       */
 
       sendMessage(
         text
@@ -1265,17 +1208,21 @@ if (
     };
 
 
-  /* ========================================================
+  /* =======================================================
      ERROR
-  ======================================================== */
+  ======================================================= */
 
   recognition.onerror =
     function(event) {
 
       console.error(
-        "❌ Speech Error:",
+        "Speech Error:",
         event.error
       );
+
+
+      isListening =
+        false;
 
 
       if (
@@ -1286,8 +1233,9 @@ if (
         assistantStatus.textContent =
           "กรุณาอนุญาตให้เว็บไซต์ใช้ไมโครโฟน";
 
+      }
 
-      } else if (
+      else if (
         event.error ===
         "no-speech"
       ) {
@@ -1295,8 +1243,19 @@ if (
         assistantStatus.textContent =
           "ไม่ได้ยินเสียง กรุณาลองใหม่";
 
+      }
 
-      } else {
+      else if (
+        event.error ===
+        "audio-capture"
+      ) {
+
+        assistantStatus.textContent =
+          "ไม่พบไมโครโฟนของอุปกรณ์";
+
+      }
+
+      else {
 
         assistantStatus.textContent =
           "ไมโครโฟนเกิดข้อผิดพลาด: " +
@@ -1307,16 +1266,15 @@ if (
     };
 
 
-  /* ========================================================
+  /* =======================================================
      END
-  ======================================================== */
+  ======================================================= */
 
   recognition.onend =
     function() {
 
-      console.log(
-        "🎤 หยุดฟัง"
-      );
+      isListening =
+        false;
 
 
       micButton.disabled =
@@ -1331,14 +1289,34 @@ if (
       micButton.textContent =
         "🎤 พูดกับ AI";
 
+
+      console.log(
+        "Microphone stopped"
+      );
+
+
+      /*
+       * ถ้ายังไม่ได้กำลังถาม AI
+       */
+
+      if (
+        assistantStatus.textContent ===
+        "กำลังฟังเสียง..."
+      ) {
+
+        assistantStatus.textContent =
+          "พร้อมใช้งาน";
+
+      }
+
     };
 
 }
 
 
-/* ============================================================
+/* =========================================================
    MICROPHONE BUTTON
-============================================================ */
+========================================================= */
 
 micButton.addEventListener(
   "click",
@@ -1347,9 +1325,19 @@ micButton.addEventListener(
     if (!recognition) {
 
       alert(
-        "Browser นี้ไม่รองรับการรู้จำเสียง กรุณาใช้ Safari หรือ Google Chrome เวอร์ชันล่าสุด"
+        "Browser นี้ไม่รองรับการรู้จำเสียง กรุณาใช้ Safari หรือ Chrome เวอร์ชันล่าสุด"
       );
 
+      return;
+
+    }
+
+
+    /*
+     * ถ้ากำลังฟังอยู่ ไม่ต้องเริ่มซ้ำ
+     */
+
+    if (isListening) {
 
       return;
 
@@ -1358,12 +1346,12 @@ micButton.addEventListener(
 
     try {
 
-
       /*
-       * ขอสิทธิ์ไมโครโฟน
+       * ขอสิทธิ์ใช้ไมค์ของอุปกรณ์
        *
-       * ไม่กำหนดว่าเป็นไมค์หูฟัง
-       * จึงสามารถใช้ไมค์ตัวเครื่องได้
+       * ใช้ได้ทั้ง
+       * - ไมค์ตัวเครื่อง
+       * - ไมค์หูฟัง
        */
 
       if (
@@ -1374,22 +1362,21 @@ micButton.addEventListener(
         const stream =
           await navigator.mediaDevices
             .getUserMedia({
-
               audio: true
-
             });
 
 
         /*
-         * ได้สิทธิ์แล้ว
-         * ปิด stream
-         * แล้วให้ SpeechRecognition ใช้ไมค์ต่อ
+         * ได้ permission แล้ว
+         * ปิด stream นี้
+         * แล้วให้ SpeechRecognition
+         * ใช้ไมค์ต่อ
          */
 
         stream
           .getTracks()
           .forEach(
-            track => {
+            function(track) {
 
               track.stop();
 
@@ -1399,13 +1386,17 @@ micButton.addEventListener(
       }
 
 
+      /*
+       * เริ่มฟัง
+       */
+
       recognition.start();
 
 
     } catch (error) {
 
       console.error(
-        "❌ Microphone Error:",
+        "Microphone error:",
         error
       );
 
@@ -1413,36 +1404,26 @@ micButton.addEventListener(
       assistantStatus.textContent =
         "ไม่สามารถใช้ไมโครโฟนได้ กรุณาอนุญาต Microphone";
 
-
     }
 
   }
 );
 
 
-/* ============================================================
+/* =========================================================
    TEXT TO SPEECH
-============================================================ */
+========================================================= */
 
 function speakText(
   text
 ) {
 
   if (
-    !(
-      "speechSynthesis"
-      in window
-    )
+    !("speechSynthesis" in window)
   ) {
-
-    console.error(
-      "Browser ไม่รองรับ Text-to-Speech"
-    );
-
 
     assistantStatus.textContent =
       "Browser ไม่รองรับการอ่านเสียง";
-
 
     return;
 
@@ -1475,7 +1456,7 @@ function speakText(
 
 
   /*
-   * เลือกเสียงภาษาไทย
+   * หาเสียงภาษาไทย
    */
 
   const voices =
@@ -1484,19 +1465,20 @@ function speakText(
 
   const thaiVoice =
     voices.find(
-      voice =>
-        voice.lang &&
-        voice.lang
-          .toLowerCase()
-          .startsWith(
-            "th"
-          )
+      function(voice) {
+
+        return (
+          voice.lang &&
+          voice.lang
+            .toLowerCase()
+            .startsWith("th")
+        );
+
+      }
     );
 
 
-  if (
-    thaiVoice
-  ) {
+  if (thaiVoice) {
 
     utterance.voice =
       thaiVoice;
@@ -1526,7 +1508,7 @@ function speakText(
     function(error) {
 
       console.error(
-        "❌ TTS Error:",
+        "TTS Error:",
         error
       );
 
@@ -1544,16 +1526,39 @@ function speakText(
 }
 
 
-/* ============================================================
-   WELCOME MESSAGE
-============================================================ */
+/* =========================================================
+   LOAD VOICES
+========================================================= */
 
-let welcomePlayed =
-  false;
+if (
+  "speechSynthesis" in window
+) {
+
+  speechSynthesis.onvoiceschanged =
+    function() {
+
+      speechSynthesis.getVoices();
+
+    };
+
+}
+
+
+/* =========================================================
+   WELCOME
+========================================================= */
+
+/*
+ * แสดงข้อความก่อน
+ */
+
+const welcomeMessage =
+  "สวัสดีครับ มีอะไรให้ช่วยไหมครับ";
 
 
 /*
- * พยายามพูดทันที
+ * iPad/iPhone มักบล็อก autoplay
+ * จึงลองพูดตอนเปิดก่อน
  */
 
 window.addEventListener(
@@ -1563,7 +1568,19 @@ window.addEventListener(
     setTimeout(
       function() {
 
-        speakWelcome();
+        try {
+
+          speakText(
+            welcomeMessage
+          );
+
+        } catch (error) {
+
+          console.log(
+            "Welcome speech blocked"
+          );
+
+        }
 
       },
       500
@@ -1574,15 +1591,41 @@ window.addEventListener(
 
 
 /*
- * สำหรับ Browser ที่บล็อก autoplay
- * จะพูดทันทีเมื่อผู้ใช้แตะหน้าเว็บครั้งแรก
+ * ถ้า Browser บล็อก autoplay
+ * ครั้งแรกที่ผู้ใช้แตะหน้าเว็บ
+ * จะพูดทักทาย
  */
+
+let welcomePlayed =
+  false;
+
 
 document.addEventListener(
   "click",
   function() {
 
-    speakWelcome();
+    if (welcomePlayed) {
+      return;
+    }
+
+
+    welcomePlayed =
+      true;
+
+
+    try {
+
+      speakText(
+        welcomeMessage
+      );
+
+    } catch (error) {
+
+      console.log(
+        "Welcome speech blocked"
+      );
+
+    }
 
   },
   {
@@ -1591,39 +1634,15 @@ document.addEventListener(
 );
 
 
-function speakWelcome() {
-
-  if (
-    welcomePlayed
-  ) {
-
-    return;
-
-  }
-
-
-  welcomePlayed =
-    true;
-
-
-  speakText(
-    "สวัสดีครับ มีอะไรให้ช่วยไหมครับ"
-  );
-
-}
-
-
-/* ============================================================
+/* =========================================================
    MICRO:BIT BLE
-============================================================ */
+========================================================= */
 
 const UART_SERVICE_UUID =
   "6e400001-b5a3-f393-e0a9-e50e24dcca9e";
 
-
 const UART_RX_UUID =
   "6e400002-b5a3-f393-e0a9-e50e24dcca9e";
-
 
 const UART_TX_UUID =
   "6e400003-b5a3-f393-e0a9-e50e24dcca9e";
@@ -1632,34 +1651,29 @@ const UART_TX_UUID =
 let bluetoothDevice =
   null;
 
-
 let uartService =
   null;
 
-
 let rxCharacteristic =
   null;
-
 
 let txCharacteristic =
   null;
 
 
-/* ============================================================
+/* =========================================================
    BLUETOOTH DOM
-============================================================ */
+========================================================= */
 
 const connectBtn =
   document.getElementById(
     "connectBtn"
   );
 
-
 const status =
   document.getElementById(
     "status"
   );
-
 
 const log =
   document.getElementById(
@@ -1715,9 +1729,9 @@ const timestamp =
   );
 
 
-/* ============================================================
+/* =========================================================
    LOG
-============================================================ */
+========================================================= */
 
 function addLog(
   message
@@ -1740,9 +1754,9 @@ function addLog(
 }
 
 
-/* ============================================================
+/* =========================================================
    STATUS
-============================================================ */
+========================================================= */
 
 function setStatus(
   message
@@ -1755,13 +1769,11 @@ function setStatus(
 }
 
 
-/* ============================================================
-   CHECK BLUETOOTH
-============================================================ */
+/* =========================================================
+   BLUETOOTH SUPPORT
+========================================================= */
 
-if (
-  !navigator.bluetooth
-) {
+if (!navigator.bluetooth) {
 
   setStatus(
     "Browser นี้ไม่รองรับ Web Bluetooth"
@@ -1779,9 +1791,9 @@ if (
 }
 
 
-/* ============================================================
+/* =========================================================
    CONNECT
-============================================================ */
+========================================================= */
 
 connectBtn.addEventListener(
   "click",
@@ -1808,13 +1820,11 @@ async function connectBluetooth() {
         .requestDevice({
 
           filters: [
-
             {
               services: [
                 UART_SERVICE_UUID
               ]
             }
-
           ],
 
           optionalServices: [
@@ -1922,9 +1932,9 @@ async function connectBluetooth() {
 }
 
 
-/* ============================================================
+/* =========================================================
    DISCONNECT
-============================================================ */
+========================================================= */
 
 function handleDisconnect() {
 
@@ -1957,9 +1967,9 @@ function handleDisconnect() {
 }
 
 
-/* ============================================================
-   RECEIVE BLUETOOTH DATA
-============================================================ */
+/* =========================================================
+   RECEIVE BLUETOOTH
+========================================================= */
 
 function handleBluetoothData(
   event
@@ -1985,9 +1995,9 @@ function handleBluetoothData(
   );
 
 
-  /* ========================================================
+  /* =======================================================
      JSON
-  ======================================================== */
+  ======================================================= */
 
   try {
 
@@ -2088,9 +2098,9 @@ function handleBluetoothData(
   }
 
 
-  /* ========================================================
+  /* =======================================================
      LEFT
-  ======================================================== */
+  ======================================================= */
 
   if (
     data.startsWith(
@@ -2101,16 +2111,14 @@ function handleBluetoothData(
     document.getElementById(
       "leftDistance"
     ).textContent =
-      data.substring(
-        5
-      );
+      data.substring(5);
 
   }
 
 
-  /* ========================================================
+  /* =======================================================
      CENTER
-  ======================================================== */
+  ======================================================= */
 
   if (
     data.startsWith(
@@ -2121,16 +2129,14 @@ function handleBluetoothData(
     document.getElementById(
       "centerDistance"
     ).textContent =
-      data.substring(
-        7
-      );
+      data.substring(7);
 
   }
 
 
-  /* ========================================================
+  /* =======================================================
      RIGHT
-  ======================================================== */
+  ======================================================= */
 
   if (
     data.startsWith(
@@ -2141,16 +2147,14 @@ function handleBluetoothData(
     document.getElementById(
       "rightDistance"
     ).textContent =
-      data.substring(
-        6
-      );
+      data.substring(6);
 
   }
 
 
-  /* ========================================================
+  /* =======================================================
      HEIGHT
-  ======================================================== */
+  ======================================================= */
 
   if (
     data.startsWith(
@@ -2161,16 +2165,14 @@ function handleBluetoothData(
     document.getElementById(
       "btHeight"
     ).textContent =
-      data.substring(
-        7
-      );
+      data.substring(7);
 
   }
 
 
-  /* ========================================================
+  /* =======================================================
      UPPER
-  ======================================================== */
+  ======================================================= */
 
   if (
     data.startsWith(
@@ -2181,16 +2183,14 @@ function handleBluetoothData(
     document.getElementById(
       "btUpperAngle"
     ).textContent =
-      data.substring(
-        6
-      );
+      data.substring(6);
 
   }
 
 
-  /* ========================================================
+  /* =======================================================
      LOWER
-  ======================================================== */
+  ======================================================= */
 
   if (
     data.startsWith(
@@ -2201,16 +2201,14 @@ function handleBluetoothData(
     document.getElementById(
       "btLowerAngle"
     ).textContent =
-      data.substring(
-        6
-      );
+      data.substring(6);
 
   }
 
 
-  /* ========================================================
+  /* =======================================================
      TIME
-  ======================================================== */
+  ======================================================= */
 
   if (
     data.startsWith(
@@ -2219,27 +2217,19 @@ function handleBluetoothData(
   ) {
 
     timestamp.textContent =
-      data.substring(
-        5
-      );
+      data.substring(5);
 
   }
 
 
-  /* ========================================================
+  /* =======================================================
      COMBINED
-  ======================================================== */
+  ======================================================= */
 
   if (
-    data.includes(
-      "LEFT:"
-    ) &&
-    data.includes(
-      "CENTER:"
-    ) &&
-    data.includes(
-      "RIGHT:"
-    )
+    data.includes("LEFT:") &&
+    data.includes("CENTER:") &&
+    data.includes("RIGHT:")
   ) {
 
     const parts =
@@ -2247,7 +2237,7 @@ function handleBluetoothData(
 
 
     parts.forEach(
-      part => {
+      function(part) {
 
         const [
           key,
@@ -2299,22 +2289,19 @@ function handleBluetoothData(
 }
 
 
-/* ============================================================
+/* =========================================================
    SEND BLUETOOTH
-============================================================ */
+========================================================= */
 
 async function sendBluetoothData(
   data
 ) {
 
-  if (
-    !rxCharacteristic
-  ) {
+  if (!rxCharacteristic) {
 
     addLog(
       "ยังไม่ได้เชื่อมต่อ micro:bit"
     );
-
 
     return;
 
@@ -2329,8 +2316,7 @@ async function sendBluetoothData(
 
     const value =
       encoder.encode(
-        data +
-        "\n"
+        data + "\n"
       );
 
 
@@ -2363,9 +2349,9 @@ async function sendBluetoothData(
 }
 
 
-/* ============================================================
-   HEIGHT SLIDER
-============================================================ */
+/* =========================================================
+   HEIGHT
+========================================================= */
 
 heightSlider.addEventListener(
   "input",
@@ -2388,9 +2374,9 @@ heightSlider.addEventListener(
 );
 
 
-/* ============================================================
+/* =========================================================
    UPPER ANGLE
-============================================================ */
+========================================================= */
 
 upperAngleSlider.addEventListener(
   "input",
@@ -2413,9 +2399,9 @@ upperAngleSlider.addEventListener(
 );
 
 
-/* ============================================================
+/* =========================================================
    LOWER ANGLE
-============================================================ */
+========================================================= */
 
 lowerAngleSlider.addEventListener(
   "input",
@@ -2438,9 +2424,9 @@ lowerAngleSlider.addEventListener(
 );
 
 
-/* ============================================================
+/* =========================================================
    TIMESTAMP
-============================================================ */
+========================================================= */
 
 timestampBtn.addEventListener(
   "click",
@@ -2503,9 +2489,9 @@ function createTimestamp() {
 }
 
 
-/* ============================================================
+/* =========================================================
    KEYBOARD T
-============================================================ */
+========================================================= */
 
 document.addEventListener(
   "keydown",
@@ -2524,9 +2510,9 @@ document.addEventListener(
 );
 
 
-/* ============================================================
+/* =========================================================
    INITIAL VALUES
-============================================================ */
+========================================================= */
 
 heightValue.textContent =
   heightSlider.value;
@@ -2540,9 +2526,9 @@ lowerAngleValue.textContent =
   lowerAngleSlider.value;
 
 
-/* ============================================================
-   TEST BACKEND
-============================================================ */
+/* =========================================================
+   BACKEND HEALTH CHECK
+========================================================= */
 
 async function testBackend() {
 
@@ -2555,19 +2541,11 @@ async function testBackend() {
       );
 
 
-    if (
-      !response.ok
-    ) {
-
-      const errorText =
-        await response.text();
-
+    if (!response.ok) {
 
       throw new Error(
         "HTTP " +
-        response.status +
-        " : " +
-        errorText
+        response.status
       );
 
     }
@@ -2578,7 +2556,7 @@ async function testBackend() {
 
 
     console.log(
-      "✅ Backend Health:",
+      "Backend Health:",
       data
     );
 
@@ -2586,7 +2564,7 @@ async function testBackend() {
   } catch (error) {
 
     console.error(
-      "❌ Backend Health Error:",
+      "Backend Health Error:",
       error
     );
 
